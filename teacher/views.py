@@ -11,11 +11,13 @@ from student import models as SMODEL
 from quiz import forms as QFORM
 
 
+
 #for showing signup/login button for teacher
 def teacherclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
     return render(request,'teacher/teacherclick.html')
+
 
 def teacher_signup_view(request):
     userForm=forms.TeacherUserForm()
@@ -38,8 +40,10 @@ def teacher_signup_view(request):
 
 
 
+
 def is_teacher(user):
     return user.groups.filter(name='TEACHER').exists()
+
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -52,10 +56,12 @@ def teacher_dashboard_view(request):
     }
     return render(request,'teacher/teacher_dashboard.html',context=dict)
 
+
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_exam_view(request):
     return render(request,'teacher/teacher_exam.html')
+
 
 
 @login_required(login_url='teacherlogin')
@@ -71,11 +77,13 @@ def teacher_add_exam_view(request):
         return HttpResponseRedirect('/teacher/teacher-view-exam')
     return render(request,'teacher/teacher_add_exam.html',{'courseForm':courseForm})
 
+
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_exam_view(request):
     courses = QMODEL.Course.objects.all()
     return render(request,'teacher/teacher_view_exam.html',{'courses':courses})
+
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -84,9 +92,11 @@ def delete_exam_view(request,pk):
     course.delete()
     return HttpResponseRedirect('/teacher/teacher-view-exam')
 
+
 @login_required(login_url='adminlogin')
 def teacher_question_view(request):
     return render(request,'teacher/teacher_question.html')
+
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
@@ -104,17 +114,20 @@ def teacher_add_question_view(request):
         return HttpResponseRedirect('/teacher/teacher-view-question')
     return render(request,'teacher/teacher_add_question.html',{'questionForm':questionForm})
 
+
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_view_question_view(request):
     courses= QMODEL.Course.objects.all()
     return render(request,'teacher/teacher_view_question.html',{'courses':courses})
 
+
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def see_question_view(request,pk):
     questions=QMODEL.Question.objects.all().filter(course_id=pk)
     return render(request,'teacher/see_question.html',{'questions':questions})
+
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
