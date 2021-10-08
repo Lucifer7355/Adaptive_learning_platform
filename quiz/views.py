@@ -25,8 +25,10 @@ def home_view(request):
 def is_teacher(user):
     return user.groups.filter(name='TEACHER').exists()
 
+
 def is_student(user):
     return user.groups.filter(name='STUDENT').exists()
+
 
 def afterlogin_view(request):
     if is_student(request.user):      
@@ -42,11 +44,11 @@ def afterlogin_view(request):
         return redirect('admin-dashboard')
 
 
-
 def adminclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
     return HttpResponseRedirect('adminlogin')
+
 
 
 @login_required(login_url='adminlogin')
@@ -59,6 +61,7 @@ def admin_dashboard_view(request):
     }
     return render(request,'quiz/admin_dashboard.html',context=dict)
 
+
 @login_required(login_url='adminlogin')
 def admin_teacher_view(request):
     dict={
@@ -68,10 +71,12 @@ def admin_teacher_view(request):
     }
     return render(request,'quiz/admin_teacher.html',context=dict)
 
+
 @login_required(login_url='adminlogin')
 def admin_view_teacher_view(request):
     teachers= TMODEL.Teacher.objects.all().filter(status=True)
     return render(request,'quiz/admin_view_teacher.html',{'teachers':teachers})
+
 
 
 @login_required(login_url='adminlogin')
@@ -94,6 +99,7 @@ def update_teacher_view(request,pk):
 
 
 
+
 @login_required(login_url='adminlogin')
 def delete_teacher_view(request,pk):
     teacher=TMODEL.Teacher.objects.get(id=pk)
@@ -105,10 +111,12 @@ def delete_teacher_view(request,pk):
 
 
 
+
 @login_required(login_url='adminlogin')
 def admin_view_pending_teacher_view(request):
     teachers= TMODEL.Teacher.objects.all().filter(status=False)
     return render(request,'quiz/admin_view_pending_teacher.html',{'teachers':teachers})
+
 
 
 @login_required(login_url='adminlogin')
@@ -126,6 +134,7 @@ def approve_teacher_view(request,pk):
         return HttpResponseRedirect('/admin-view-pending-teacher')
     return render(request,'quiz/salary_form.html',{'teacherSalary':teacherSalary})
 
+
 @login_required(login_url='adminlogin')
 def reject_teacher_view(request,pk):
     teacher=TMODEL.Teacher.objects.get(id=pk)
@@ -134,11 +143,11 @@ def reject_teacher_view(request,pk):
     teacher.delete()
     return HttpResponseRedirect('/admin-view-pending-teacher')
 
+
 @login_required(login_url='adminlogin')
 def admin_view_teacher_salary_view(request):
     teachers= TMODEL.Teacher.objects.all().filter(status=True)
     return render(request,'quiz/admin_view_teacher_salary.html',{'teachers':teachers})
-
 
 
 
@@ -149,11 +158,11 @@ def admin_student_view(request):
     }
     return render(request,'quiz/admin_student.html',context=dict)
 
+
 @login_required(login_url='adminlogin')
 def admin_view_student_view(request):
     students= SMODEL.Student.objects.all()
     return render(request,'quiz/admin_view_student.html',{'students':students})
-
 
 
 @login_required(login_url='adminlogin')
@@ -176,6 +185,7 @@ def update_student_view(request,pk):
 
 
 
+
 @login_required(login_url='adminlogin')
 def delete_student_view(request,pk):
     student=SMODEL.Student.objects.get(id=pk)
@@ -188,6 +198,7 @@ def delete_student_view(request,pk):
 @login_required(login_url='adminlogin')
 def admin_course_view(request):
     return render(request,'quiz/admin_course.html')
+
 
 
 @login_required(login_url='adminlogin')
@@ -208,6 +219,7 @@ def admin_view_course_view(request):
     courses = models.Course.objects.all()
     return render(request,'quiz/admin_view_course.html',{'courses':courses})
 
+
 @login_required(login_url='adminlogin')
 def delete_course_view(request,pk):
     course=models.Course.objects.get(id=pk)
@@ -215,10 +227,10 @@ def delete_course_view(request,pk):
     return HttpResponseRedirect('/admin-view-course')
 
 
-
 @login_required(login_url='adminlogin')
 def admin_question_view(request):
     return render(request,'quiz/admin_question.html')
+
 
 
 @login_required(login_url='adminlogin')
@@ -237,15 +249,18 @@ def admin_add_question_view(request):
     return render(request,'quiz/admin_add_question.html',{'questionForm':questionForm})
 
 
+
 @login_required(login_url='adminlogin')
 def admin_view_question_view(request):
     courses= models.Course.objects.all()
     return render(request,'quiz/admin_view_question.html',{'courses':courses})
 
+
 @login_required(login_url='adminlogin')
 def view_question_view(request,pk):
     questions=models.Question.objects.all().filter(course_id=pk)
     return render(request,'quiz/view_question.html',{'questions':questions})
+
 
 @login_required(login_url='adminlogin')
 def delete_question_view(request,pk):
@@ -253,10 +268,12 @@ def delete_question_view(request,pk):
     question.delete()
     return HttpResponseRedirect('/admin-view-question')
 
+
 @login_required(login_url='adminlogin')
 def admin_view_student_marks_view(request):
     students= SMODEL.Student.objects.all()
     return render(request,'quiz/admin_view_student_marks.html',{'students':students})
+
 
 @login_required(login_url='adminlogin')
 def admin_view_marks_view(request,pk):
@@ -264,6 +281,7 @@ def admin_view_marks_view(request,pk):
     response =  render(request,'quiz/admin_view_marks.html',{'courses':courses})
     response.set_cookie('student_id',str(pk))
     return response
+
 
 @login_required(login_url='adminlogin')
 def admin_check_marks_view(request,pk):
@@ -276,10 +294,9 @@ def admin_check_marks_view(request,pk):
     
 
 
-
-
 def aboutus_view(request):
     return render(request,'quiz/aboutus.html')
+
 
 def contactus_view(request):
     sub = forms.ContactusForm()
@@ -292,5 +309,6 @@ def contactus_view(request):
             send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
             return render(request, 'quiz/contactussuccess.html')
     return render(request, 'quiz/contactus.html', {'form':sub})
+
 
 
