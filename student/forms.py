@@ -11,6 +11,7 @@ class StudentUserForm(forms.ModelForm):
         'password': forms.PasswordInput()
         }
 
+
 class StudentForm(forms.ModelForm):
     class Meta:
         model=models.Student
