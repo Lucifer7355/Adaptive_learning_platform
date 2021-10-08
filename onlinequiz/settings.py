@@ -25,7 +25,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'static')
 SECRET_KEY = '@k0#p3kidu)yaaa3u1hplxz)f@^6xiy384*(+n@@s5x#1bx@m5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -49,8 +49,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -129,11 +127,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS=[
-# STATIC_DIR,
-#  ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS=[
+STATIC_DIR,
+ ]
 
 LOGIN_REDIRECT_URL='/afterlogin'
 
@@ -150,4 +146,3 @@ EMAIL_HOST_PASSWORD = 'gamer@1234' # host email password required
 # otherwise you will get SMTPAuthenticationError at /contactus
 # this process is required because google blocks apps authentication by default
 EMAIL_RECEIVING_USER = ['ankitviddya@gmail.com'] # email on which you will receive messages sent from website
-
