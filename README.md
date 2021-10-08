@@ -5,13 +5,13 @@
 ### Homepage
 ![homepage snap](static/screenshots/homepage.png)
 ### Admin Dashboard
-![dashboard snap](https://github.com/sumitkumar1503/onlinequiz/blob/master/static/screenshots/adminhomepage.png?raw=true)
+![dashboard snap](static/screenshots/adminhomepage.png)
 ### Exam Rules
-![invoice snap](https://github.com/sumitkumar1503/onlinequiz/blob/master/static/screenshots/rules.png?raw=true)
+![invoice snap](static/screenshots/rules.png)
 ### Exam
-![doctor snap](https://github.com/sumitkumar1503/onlinequiz/blob/master/static/screenshots/exam.png?raw=true)
+![doctor snap](static/screenshots/exam.png)
 ### Teacher
-![doctor snap](https://github.com/sumitkumar1503/onlinequiz/blob/master/static/screenshots/teacher.png?raw=true)
+![doctor snap](static/screenshots/teacher.png)
 ---
 ## Functions
 ### Admin
