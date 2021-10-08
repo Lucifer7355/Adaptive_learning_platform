@@ -128,9 +128,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=[
-STATIC_DIR,
- ]
+# STATICFILES_DIRS=[
+# STATIC_DIR,
+#  ]
+
+STATIC_ROOT = os.join(BASE_DIR,'staticfiles')
 
 LOGIN_REDIRECT_URL='/afterlogin'
 
